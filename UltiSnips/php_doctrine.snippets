@@ -1,0 +1,175 @@
+priority -40
+
+snippet dcrepository "Doctrine / Repository" b
+<?php
+
+namespace `!v sniphpets#resolve_namespace()`;
+
+use Doctrine\ORM\EntityRepository;
+
+class `!v sniphpets#basename()` extends EntityRepository
+{
+	${0}
+}
+endsnippet
+
+snippet dcrepositoryfind "Doctrine / Repository method" b
+public function find${1}(${2})
+{
+	return $this
+		->createQueryBuilder('${3:`!v tolower(strpart(sniphpets#basename(), 0, 1))`}')
+		->select('$3')
+		->${0}
+		->getQuery()
+		->getResult()
+	;
+}
+endsnippet
+
+snippet dcentity "Doctrine / Entity" b
+<?php
+
+namespace `!v sniphpets#resolve_namespace()`;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(${1:repositoryClass="${2:`!v sniphpets#basename()`Repository}"})
+ * @ORM\Table(name="${3:`!v sniphpets#camel_to_snake(sniphpets#basename())`}")
+ */
+class `!v sniphpets#basename()`
+{
+	/**
+	 * @ORM\Id()
+	 * @ORM\Column(type="integer")
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	private \$id;${0}
+}
+endsnippet
+
+snippet dccolumn "Doctrine / Column" b
+/**
+ * @ORM\Column(type="${2:string}"${3})
+ */
+private \$${1:name};${0}
+endsnippet
+
+snippet dcotou "Doctrine / OneToOne unidirectional column" b
+/**
+ * @ORM\OneToOne(targetEntity="${1:Entity}")
+ */
+private \$${2:${1/^./\l$0/}};${0}
+endsnippet
+
+snippet dcoto "Doctrine / OneToOne owner column" b
+/**
+ * @ORM\OneToOne(targetEntity="${1:Entity}", inversedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}")
+ */
+private \$${3:${1/^./\l$0/}};${0}
+endsnippet
+
+snippet dcotoi "Doctrine / OneToOne inverse column" b
+/**
+ * @ORM\OneToOne(targetEntity="${1:Entity}", mappedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}")
+ */
+private \$${3:${1/^./\l$0/}};${0}
+endsnippet
+
+snippet dcotm "Doctrine / OneToMany column" b
+/**
+ * @ORM\OneToMany(targetEntity="${1:Entity}", mappedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}${3}")
+ */
+private \$${4:${1/^./\l$0/}};${0}
+endsnippet
+
+snippet dcmto "Doctrine / ManyToOne column" b
+/**
+ * @ORM\ManyToOne(targetEntity="${1:Entity}", inversedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}")
+ */
+private \$${3:${1/^./\l$0/}${4}};${0}
+endsnippet
+
+snippet dcmtou "Doctrine / ManyToOne unidirectional column" b
+/**
+ * @ORM\ManyToOne(targetEntity="${2:Entity}")
+ */
+private \$${1:name};${0}
+endsnippet
+
+snippet dcmtmu "Doctrine / ManyToMany unidirectional column" b
+/**
+ * @ORM\ManyToMany(targetEntity="${2:Entity}")
+ * @ORM\JoinTable(name="${3:}")
+ */
+private \$${1:name};${0}
+endsnippet
+
+snippet dcmtm "Doctrine / ManyToMany owner column" b
+/**
+ * @ORM\ManyToMany(targetEntity="${2:Entity}", inversedBy="${3:property}")
+ * @ORM\JoinTable(name="${4:}")
+ */
+private \$${1:name};${0}
+endsnippet
+
+snippet dcmtmi "Doctrine / ManyToMany inverse column" b
+/**
+ * @ORM\ManyToMany(targetEntity="${2:Entity}", mappedBy="${3:property}")
+ */
+private \$${1:name};${0}
+endsnippet
+
+snippet dcentityhas "Doctrine / Entity / Has method" b
+/**
+ * Has${1/[A-Z]/ \l$0/g}.
+ *
+ * @param ${2/^$/mixed /}$${1/^./\l$0/}
+ * @return bool
+ */
+public function has${1}(${2:$1 }$${1/^./\l$0/})
+{
+	return $this->${3:${1/^./\l$0/}s}->contains($${1/^./\l$0/});
+}
+endsnippet
+
+snippet dcentityadd "Doctrine / Entity / 'Adder' method" b
+/**
+ * Add${1/[A-Z]/ \l$0/g}.
+ *
+ * @param ${2/^$/mixed /}$${1/^./\l$0/}
+ * @return `!v sniphpets#basename()`
+ */
+public function add${1}(${2:$1 }$${1/^./\l$0/})
+{
+	if (!$this->${3:${1/^./\l$0/}s}->contains($${1/^./\l$0/})) {
+		$${1/^./\l$0/}->${4:set}${5:`!v sniphpets#basename()`}($this);
+		$this->$3->add($${1/^./\l$0/});
+	}
+
+	return $this;
+}
+endsnippet
+
+snippet dcentityremove "Doctrine / Entity / 'Remover' method" b
+/**
+ * Remove${1/[A-Z]/ \l$0/g}.
+ *
+ * @param ${2/^$/mixed /}$${1/^./\l$0/}
+ * @return `!v sniphpets#basename()`
+ */
+public function remove${1}(${2:$1 }$${1/^./\l$0/})
+{
+	if (!$this->${3:${1/^./\l$0/}s}->contains($${1/^./\l$0/})) {
+		$${1/^./\l$0/}->${4:remove}${5:`!v sniphpets#basename()`}(${6:$this});
+		$this->$3->removeElement($${1/^./\l$0/});
+	}
+
+	return $this;
+}
+endsnippet
+
+snippet dcsaveentity "Doctrine / Entity / Persist and flush" b
+$${1:em}->persist($${2:model});
+$$1->flush();
+endsnippet
