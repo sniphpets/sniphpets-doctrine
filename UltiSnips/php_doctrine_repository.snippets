@@ -1,0 +1,26 @@
+priority -40
+
+snippet dcrepository "Doctrine / Repository" b
+<?php
+
+namespace `!v sniphpets#resolve_namespace()`;
+
+use Doctrine\ORM\EntityRepository;
+
+class `!v sniphpets#basename()` extends EntityRepository
+{
+	${0}
+}
+endsnippet
+
+snippet dcfind "Doctrine / Repository method" b
+public function find${1}(${2})
+{
+	return \$this
+		->createQueryBuilder('${3:`!v tolower(strpart(sniphpets#basename(), 0, 1))`}')
+		->${0}
+		->getQuery()
+		->getResult()
+	;
+}
+endsnippet

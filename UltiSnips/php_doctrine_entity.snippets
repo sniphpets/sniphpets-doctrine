@@ -1,30 +1,5 @@
 priority -40
 
-snippet dcrepository "Doctrine / Repository" b
-<?php
-
-namespace `!v sniphpets#resolve_namespace()`;
-
-use Doctrine\ORM\EntityRepository;
-
-class `!v sniphpets#basename()` extends EntityRepository
-{
-	${0}
-}
-endsnippet
-
-snippet dcrepositoryfind "Doctrine / Repository method" b
-public function find${1}(${2})
-{
-	return \$this
-		->createQueryBuilder('${3:`!v tolower(strpart(sniphpets#basename(), 0, 1))`}')
-		->${0}
-		->getQuery()
-		->getResult()
-	;
-}
-endsnippet
-
 snippet dcentity "Doctrine / Entity" b
 <?php
 
@@ -51,65 +26,65 @@ snippet dccolumn "Doctrine / Column" b
 /**
  * @ORM\Column(type="${2:string}"${3})
  */
-private \$${1:name};${0}
-endsnippet
-
-snippet dconetoneu "Doctrine / OneToOne unidirectional column" b
-/**
- * @ORM\OneToOne(targetEntity="${1:Entity}")
- */
-private \$${2:${1/^./\l$0/}};${0}
+private \$${1:name};
 endsnippet
 
 snippet dconetoone "Doctrine / OneToOne owner column" b
 /**
  * @ORM\OneToOne(targetEntity="${1:Entity}", inversedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}")
  */
-private \$${3:${1/^./\l$0/}};${0}
+private \$${3:${1/^./\l$0/}};
+endsnippet
+
+snippet dconetoneu "Doctrine / OneToOne unidirectional column" b
+/**
+ * @ORM\OneToOne(targetEntity="${1:Entity}")
+ */
+private \$${2:${1/^./\l$0/}};
 endsnippet
 
 snippet dconetoonei "Doctrine / OneToOne inverse column" b
 /**
  * @ORM\OneToOne(targetEntity="${1:Entity}", mappedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}")
  */
-private \$${3:${1/^./\l$0/}};${0}
+private \$${3:${1/^./\l$0/}};
 endsnippet
 
-snippet dcotm "Doctrine / OneToMany column" b
+snippet dconetomany "Doctrine / OneToMany column" b
 /**
- * @ORM\OneToMany(targetEntity="${1:Entity}", mappedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}${3}")
+ * @ORM\OneToMany(targetEntity="${1:Entity}", mappedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}${3:s}")
  */
-private \$${4:${1/^./\l$0/}};${0}
+private \$${4:${1/^./\l$0/}};
 endsnippet
 
-snippet dcmto "Doctrine / ManyToOne column" b
+snippet dcmanytoone "Doctrine / ManyToOne column" b
 /**
  * @ORM\ManyToOne(targetEntity="${1:Entity}", inversedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}")
  */
-private \$${3:${1/^./\l$0/}${4}};${0}
+private \$${3:${1/^./\l$0/}${4}};
 endsnippet
 
-snippet dcmtou "Doctrine / ManyToOne unidirectional column" b
+snippet dcmanytooneu "Doctrine / ManyToOne unidirectional column" b
 /**
  * @ORM\ManyToOne(targetEntity="${2:Entity}")
  */
-private \$${1:name};${0}
-endsnippet
-
-snippet dcmtmu "Doctrine / ManyToMany unidirectional column" b
-/**
- * @ORM\ManyToMany(targetEntity="${2:Entity}")
- * @ORM\JoinTable(name="${3:}")
- */
-private \$${1:name};${0}
+private \$${1:name};
 endsnippet
 
 snippet dcmanytomany "Doctrine / ManyToMany owner column" b
 /**
- * @ORM\ManyToMany(targetEntity="${2:Entity}", inversedBy="${3:property}")
- * @ORM\JoinTable(name="${4:}")
+ * @ORM\ManyToMany(targetEntity="${2:Entity}", inversedBy="${3:`!v sniphpets#lcfirst(sniphpets#basename())`}${4:s}")
+ * @ORM\JoinTable(name="${5:}")
  */
-private \$${1:name};${0}
+private \$${1:name};
+endsnippet
+
+snippet dcmanytomanyu "Doctrine / ManyToMany unidirectional column" b
+/**
+ * @ORM\ManyToMany(targetEntity="${2:Entity}")
+ * @ORM\JoinTable(name="${3}")
+ */
+private \$${1:name};
 endsnippet
 
 snippet dcmanytomanyi "Doctrine / ManyToMany inverse column" b
@@ -119,7 +94,7 @@ snippet dcmanytomanyi "Doctrine / ManyToMany inverse column" b
 private \$${1:name};${0}
 endsnippet
 
-snippet dchasser "Doctrine / Entity / 'Hasser' method" b
+snippet dchas "Doctrine / Entity / 'Hasser' method" b
 /**
  * Has${1/[A-Z]/ \l$0/g}.
  *
@@ -132,7 +107,7 @@ public function has${1}(${2:$1 }$${1/^./\l$0/})
 }
 endsnippet
 
-snippet dcadder "Doctrine / Entity / 'Adder' method" b
+snippet dcadd "Doctrine / Entity / 'Adder' method" b
 /**
  * Add${1/[A-Z]/ \l$0/g}.
  *
@@ -150,7 +125,7 @@ public function add${1}(${2:$1 }\$${1/^./\l$0/})
 }
 endsnippet
 
-snippet dcaddero "Doctrine / Entity / 'Adder' method (one to many)" b
+snippet dcaddo "Doctrine / Entity / 'Adder' method (one to many)" b
 /**
  * Add${1/[A-Z]/ \l$0/g}.
  *
@@ -169,7 +144,7 @@ public function add${1}(${2:$1 }\$${1/^./\l$0/})
 }
 endsnippet
 
-snippet dcadderm "Doctrine / Entity / 'Adder' method (many to many)" b
+snippet dcaddm "Doctrine / Entity / 'Adder' method (many to many)" b
 /**
  * Add${1/[A-Z]/ \l$0/g}.
  *
@@ -188,7 +163,7 @@ public function add${1}(${2:$1 }\$${1/^./\l$0/})
 }
 endsnippet
 
-snippet dcremover "Doctrine / Entity / 'Remover' method" b
+snippet dcremove "Doctrine / Entity / 'Remover' method" b
 /**
  * Remove${1/[A-Z]/ \l$0/g}.
  *
@@ -206,7 +181,7 @@ public function remove${1}(${2:$1 }\$${1/^./\l$0/})
 }
 endsnippet
 
-snippet dcremovero "Doctrine / Entity / 'Remover' method (one to many)" b
+snippet dcremoveo "Doctrine / Entity / 'Remover' method (one to many)" b
 /**
  * Remove${1/[A-Z]/ \l$0/g}.
  *
@@ -225,7 +200,7 @@ public function remove${1}(${2:$1 }\$${1/^./\l$0/})
 }
 endsnippet
 
-snippet dcremoverm "Doctrine / Entity / 'Remover' method (one to many)" b
+snippet dcremovem "Doctrine / Entity / 'Remover' method (one to many)" b
 /**
  * Remove${1/[A-Z]/ \l$0/g}.
  *
