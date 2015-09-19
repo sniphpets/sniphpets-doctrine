@@ -16,9 +16,8 @@ endsnippet
 snippet dcrepositoryfind "Doctrine / Repository method" b
 public function find${1}(${2})
 {
-	return $this
+	return \$this
 		->createQueryBuilder('${3:`!v tolower(strpart(sniphpets#basename(), 0, 1))`}')
-		->select('$3')
 		->${0}
 		->getQuery()
 		->getResult()
@@ -55,21 +54,21 @@ snippet dccolumn "Doctrine / Column" b
 private \$${1:name};${0}
 endsnippet
 
-snippet dcotou "Doctrine / OneToOne unidirectional column" b
+snippet dconetoneu "Doctrine / OneToOne unidirectional column" b
 /**
  * @ORM\OneToOne(targetEntity="${1:Entity}")
  */
 private \$${2:${1/^./\l$0/}};${0}
 endsnippet
 
-snippet dcoto "Doctrine / OneToOne owner column" b
+snippet dconetoone "Doctrine / OneToOne owner column" b
 /**
  * @ORM\OneToOne(targetEntity="${1:Entity}", inversedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}")
  */
 private \$${3:${1/^./\l$0/}};${0}
 endsnippet
 
-snippet dcotoi "Doctrine / OneToOne inverse column" b
+snippet dconetoonei "Doctrine / OneToOne inverse column" b
 /**
  * @ORM\OneToOne(targetEntity="${1:Entity}", mappedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}")
  */
@@ -105,7 +104,7 @@ snippet dcmtmu "Doctrine / ManyToMany unidirectional column" b
 private \$${1:name};${0}
 endsnippet
 
-snippet dcmtm "Doctrine / ManyToMany owner column" b
+snippet dcmanytomany "Doctrine / ManyToMany owner column" b
 /**
  * @ORM\ManyToMany(targetEntity="${2:Entity}", inversedBy="${3:property}")
  * @ORM\JoinTable(name="${4:}")
@@ -113,14 +112,14 @@ snippet dcmtm "Doctrine / ManyToMany owner column" b
 private \$${1:name};${0}
 endsnippet
 
-snippet dcmtmi "Doctrine / ManyToMany inverse column" b
+snippet dcmanytomanyi "Doctrine / ManyToMany inverse column" b
 /**
  * @ORM\ManyToMany(targetEntity="${2:Entity}", mappedBy="${3:property}")
  */
 private \$${1:name};${0}
 endsnippet
 
-snippet dcentityhas "Doctrine / Entity / Has method" b
+snippet dchasser "Doctrine / Entity / 'Hasser' method" b
 /**
  * Has${1/[A-Z]/ \l$0/g}.
  *
@@ -133,43 +132,119 @@ public function has${1}(${2:$1 }$${1/^./\l$0/})
 }
 endsnippet
 
-snippet dcentityadd "Doctrine / Entity / 'Adder' method" b
+snippet dcadder "Doctrine / Entity / 'Adder' method" b
 /**
  * Add${1/[A-Z]/ \l$0/g}.
  *
- * @param ${2/^$/mixed /}$${1/^./\l$0/}
- * @return `!v sniphpets#basename()`
+ * @param ${2/^$/mixed /}\$${1/^./\l$0/}
+ *
+ * @return \$this
  */
-public function add${1}(${2:$1 }$${1/^./\l$0/})
+public function add${1}(${2:$1 }\$${1/^./\l$0/})
 {
-	if (!$this->${3:${1/^./\l$0/}s}->contains($${1/^./\l$0/})) {
-		$${1/^./\l$0/}->${4:set}${5:`!v sniphpets#basename()`}($this);
-		$this->$3->add($${1/^./\l$0/});
+	if (!\$this->${3:${1/^./\l$0/}s}->contains(\$${1/^./\l$0/})) {
+		\$this->$3->add(\$${1/^./\l$0/});
 	}
 
-	return $this;
+	return \$this;
 }
 endsnippet
 
-snippet dcentityremove "Doctrine / Entity / 'Remover' method" b
+snippet dcaddero "Doctrine / Entity / 'Adder' method (one to many)" b
+/**
+ * Add${1/[A-Z]/ \l$0/g}.
+ *
+ * @param ${2/^$/mixed /}\$${1/^./\l$0/}
+ *
+ * @return \$this
+ */
+public function add${1}(${2:$1 }\$${1/^./\l$0/})
+{
+	if (!\$this->${3:${1/^./\l$0/}s}->contains(\$${1/^./\l$0/})) {
+		\$this->$3->add(\$${1/^./\l$0/});
+		\$${1/^./\l$0/}->set${5:`!v sniphpets#basename()`}(\$this);
+	}
+
+	return \$this;
+}
+endsnippet
+
+snippet dcadderm "Doctrine / Entity / 'Adder' method (many to many)" b
+/**
+ * Add${1/[A-Z]/ \l$0/g}.
+ *
+ * @param ${2/^$/mixed /}\$${1/^./\l$0/}
+ *
+ * @return \$this
+ */
+public function add${1}(${2:$1 }\$${1/^./\l$0/})
+{
+	if (!\$this->${3:${1/^./\l$0/}s}->contains(\$${1/^./\l$0/})) {
+		\$this->$3->add(\$${1/^./\l$0/});
+		\$${1/^./\l$0/}->add${5:`!v sniphpets#basename()`}(\$this);
+	}
+
+	return \$this;
+}
+endsnippet
+
+snippet dcremover "Doctrine / Entity / 'Remover' method" b
 /**
  * Remove${1/[A-Z]/ \l$0/g}.
  *
- * @param ${2/^$/mixed /}$${1/^./\l$0/}
- * @return `!v sniphpets#basename()`
+ * @param ${2/^$/mixed /}\$${1/^./\l$0/}
+ *
+ * @return \$this
  */
-public function remove${1}(${2:$1 }$${1/^./\l$0/})
+public function remove${1}(${2:$1 }\$${1/^./\l$0/})
 {
-	if (!$this->${3:${1/^./\l$0/}s}->contains($${1/^./\l$0/})) {
-		$${1/^./\l$0/}->${4:remove}${5:`!v sniphpets#basename()`}(${6:$this});
-		$this->$3->removeElement($${1/^./\l$0/});
+	if (!\$this->${3:${1/^./\l$0/}s}->contains(\$${1/^./\l$0/})) {
+		\$this->$3->removeElement($${1/^./\l$0/});
 	}
 
-	return $this;
+	return \$this;
 }
 endsnippet
 
-snippet dcsaveentity "Doctrine / Entity / Persist and flush" b
-$${1:em}->persist($${2:model});
-$$1->flush();
+snippet dcremovero "Doctrine / Entity / 'Remover' method (one to many)" b
+/**
+ * Remove${1/[A-Z]/ \l$0/g}.
+ *
+ * @param ${2/^$/mixed /}\$${1/^./\l$0/}
+ *
+ * @return \$this
+ */
+public function remove${1}(${2:$1 }\$${1/^./\l$0/})
+{
+	if (!\$this->${3:${1/^./\l$0/}s}->contains(\$${1/^./\l$0/})) {
+		\$this->$3->removeElement($${1/^./\l$0/});
+		\$${1/^./\l$0/}->set${4:`!v sniphpets#basename()`}(null);
+	}
+
+	return \$this;
+}
+endsnippet
+
+snippet dcremoverm "Doctrine / Entity / 'Remover' method (one to many)" b
+/**
+ * Remove${1/[A-Z]/ \l$0/g}.
+ *
+ * @param ${2/^$/mixed /}\$${1/^./\l$0/}
+ *
+ * @return \$this
+ */
+public function remove${1}(${2:$1 }\$${1/^./\l$0/})
+{
+	if (!\$this->${3:${1/^./\l$0/}s}->contains(\$${1/^./\l$0/})) {
+		\$this->$3->removeElement($${1/^./\l$0/});
+		\$${1/^./\l$0/}->remove${4:`!v sniphpets#basename()`}(\$this);
+	}
+
+	return \$this;
+}
+endsnippet
+
+snippet dcsave "Doctrine / Entity / Persist and flush" b
+\$${1:entityManager}->persist(\$${2:model});
+\$$1->flush();
 endsnippet
