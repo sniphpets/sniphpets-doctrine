@@ -1,0 +1,41 @@
+priority -40
+
+snippet dcfixture "Doctine / Fixture" b
+<?php
+
+namespace `!v sniphpets#resolve_namespace()`;
+
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\Persistence\ObjectManager;
+
+class `!v sniphpets#basename()` extends AbstractFixture
+{
+	public function load(ObjectManager $manager)
+	{
+		${0}
+	}
+}
+endsnippet
+
+snippet dcfixtureordered "Doctine / Ordered fixture" b
+<?php
+
+namespace `!v sniphpets#resolve_namespace()`;
+
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+
+class `!v sniphpets#basename()` extends AbstractFixture implements OrderedFixtureInterface
+{
+	public function load(ObjectManager $manager)
+	{
+		${0}
+	}
+
+	public function getOrder()
+	{
+		return ${1:1};
+	}
+}
+endsnippet
