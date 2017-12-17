@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(${1:repositoryClass="${2:`!v sniphpets#basename()`Repository}"})
- * @ORM\Table(name="${3:`!v sniphpets#camel_to_snake(sniphpets#basename())`}")
  */
 class `!v sniphpets#basename()`
 {
@@ -33,69 +32,103 @@ snippet dccolumn "Doctrine / Column" b
 private \$${1:name};
 endsnippet
 
-snippet dconetoone "Doctrine / OneToOne owner column" b
+snippet dcstring "Doctrine / Column / String" b
 /**
- * @ORM\OneToOne(targetEntity="${1:Entity}", inversedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}")
+ * @ORM\Column(type="string"${3})
+ *
+ * @var string
  */
-private \$${3:${1/^./\l$0/}};
+private \$${1:name};
 endsnippet
 
-snippet dconetoneu "Doctrine / OneToOne unidirectional column" b
+snippet dctext "Doctrine / Column / Text" b
+/**
+ * @ORM\Column(type="text"${3})
+ *
+ * @var string
+ */
+private \$${1:name};
+endsnippet
+
+snippet dcint "Doctrine / Column / Integer" b
+/**
+ * @ORM\Column(type="integer"${3})
+ *
+ * @var int
+ */
+private \$${1:name};
+endsnippet
+
+snippet dcdatetime "Doctrine / Column / DateTime" b
+/**
+ * @ORM\Column(type="datetime"${3})
+ *
+ * @var \DateTime
+ */
+private \$${1:name};
+endsnippet
+
+snippet dcdatetime "Doctrine / Column / DateTimeImmutable" b
+/**
+ * @ORM\Column(type="datetime_immutable"${3})
+ *
+ * @var \DateTimeImmutable
+ */
+private \$${1:name};
+endsnippet
+
+snippet dcbool "Doctrine / Column / Boolean" b
+/**
+ * @ORM\Column(type="boolean"${3})
+ *
+ * @var bool
+ */
+private \$${1:name};
+endsnippet
+
+snippet dcjson "Doctrine / Column / JSON" b
+/**
+ * @ORM\Column(type="json"${3})
+ *
+ * @var array
+ */
+private \$${1:name};
+endsnippet
+
+snippet dconetone "Doctrine / Association / One-to-One" b
 /**
  * @ORM\OneToOne(targetEntity="${1:Entity}")
+ *
+ * @var $1
  */
 private \$${2:${1/^./\l$0/}};
 endsnippet
 
-snippet dconetoonei "Doctrine / OneToOne inverse column" b
+snippet dconetomany "Doctrine / Association / One-to-Many" b
 /**
- * @ORM\OneToOne(targetEntity="${1:Entity}", mappedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}")
+ * @ORM\OneToMany(targetEntity="${1:Entity}", mappedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}")
+ *
+ * @var $1[]|Collection
  */
-private \$${3:${1/^./\l$0/}};
+private \$${4:${1/^./\l$0/}s};
 endsnippet
 
-snippet dconetomany "Doctrine / OneToMany column" b
+snippet dcmanytoone "Doctrine / Association / Many-to-One" b
 /**
- * @ORM\OneToMany(targetEntity="${1:Entity}", mappedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}${3:s}")
+ * @ORM\ManyToOne(targetEntity="${1:Entity}"${2:, inversedBy="${3:`!v sniphpets#lcfirst(sniphpets#basename())`s}"})
+ *
+ * @var $1
  */
 private \$${4:${1/^./\l$0/}};
 endsnippet
 
-snippet dcmanytoone "Doctrine / ManyToOne column" b
+snippet dcmanytomany "Doctrine / Association / Many-to-Many" b
 /**
- * @ORM\ManyToOne(targetEntity="${1:Entity}", inversedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}")
+ * @ORM\ManyToMany(targetEntity="${1:Entity}")
+ *
+ * @var $1[]|Collection
  */
-private \$${3:${1/^./\l$0/}${4}};
-endsnippet
-
-snippet dcmanytooneu "Doctrine / ManyToOne unidirectional column" b
-/**
- * @ORM\ManyToOne(targetEntity="${2:Entity}")
- */
-private \$${1:name};
-endsnippet
-
-snippet dcmanytomany "Doctrine / ManyToMany owner column" b
-/**
- * @ORM\ManyToMany(targetEntity="${2:Entity}", inversedBy="${3:`!v sniphpets#lcfirst(sniphpets#basename())`}${4:s}")
- * @ORM\JoinTable(name="${5:}")
- */
-private \$${1:name};
-endsnippet
-
-snippet dcmanytomanyu "Doctrine / ManyToMany unidirectional column" b
-/**
- * @ORM\ManyToMany(targetEntity="${2:Entity}")
- * @ORM\JoinTable(name="${3}")
- */
-private \$${1:name};
-endsnippet
-
-snippet dcmanytomanyi "Doctrine / ManyToMany inverse column" b
-/**
- * @ORM\ManyToMany(targetEntity="${2:Entity}", mappedBy="${3:property}")
- */
-private \$${1:name};${0}
+private \$${2:${1/^./\l$0/}s};
 endsnippet
 
 snippet dchas "Doctrine / Entity / 'Hasser' method" b
