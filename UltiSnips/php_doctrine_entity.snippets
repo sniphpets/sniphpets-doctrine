@@ -25,6 +25,21 @@ class `!v sniphpets#basename()`
 }
 endsnippet
 
+snippet dcembeddable "Doctrine / Embeddable" b
+<?php
+
+namespace `!v sniphpets#namespace()`;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Embeddable
+ */
+class `!v sniphpets#basename()`
+{
+}
+endsnippet
+
 snippet dccolumn "Doctrine / Column" b
 /**
  * @ORM\Column(type="${2:string}"${3})
@@ -93,6 +108,15 @@ snippet dcjson "Doctrine / Column / JSON" b
  * @var array
  */
 private \$${1:name};
+endsnippet
+
+snippet dcembed "Doctrine / Columnt / Embeddable"
+/**
+ * @ORM\Embedded(class="${1}")
+ *
+ * @var $1
+ */
+private \$${2:${1/^./\l$0/}};
 endsnippet
 
 snippet dconetone "Doctrine / Association / One-to-One" b
