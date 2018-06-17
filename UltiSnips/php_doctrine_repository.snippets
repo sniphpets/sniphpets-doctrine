@@ -5,6 +5,7 @@ snippet dcrepository "Doctrine / Repository" b
 
 namespace `!v sniphpets#namespace()`;
 
+use `!v get(g:, 'sniphpets_doctrine_entity_namespace').sniphpets#basename('Repository')`;
 use Doctrine\ORM\EntityRepository;
 
 class `!v sniphpets#basename()` extends EntityRepository
@@ -13,11 +14,22 @@ class `!v sniphpets#basename()` extends EntityRepository
 }
 endsnippet
 
-snippet dcfind "Doctrine / Repository method" b
-public function find${1}(${2})
+snippet dcfind "Doctrine / Repository / Find using DQL" b
+public function find${1}(${2}): array
 {
 	return \$this
-		->createQueryBuilder('${3:`!v tolower(strpart(sniphpets#basename(), 0, 1))`}')
+		->getEntityManager()
+		->createQuery('SELECT `!v sniphpets#doctrine#entity_alias()` FROM `!v get(g:, 'sniphpets_doctrine_entity_namespace').sniphpets#basename('Repository')` `!v sniphpets#doctrine#entity_alias()` ${0}')
+		->getResult()
+	;
+}
+endsnippet
+
+snippet dcfindqb "Doctrine / Repository / Find using Query Builder" b
+public function find${1}(${2}): array
+{
+	return \$this
+		->createQueryBuilder('`!v sniphpets#doctrine#entity_alias()`')
 		->${0}
 		->getQuery()
 		->getResult()
