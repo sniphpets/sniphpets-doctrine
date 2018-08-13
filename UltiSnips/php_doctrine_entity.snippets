@@ -156,92 +156,45 @@ private \$${2:${1/^./\l$0/}s};
 endsnippet
 
 snippet dchas "Doctrine / Entity / 'Hasser' method" b
-/**
- * Has `!p snip.rv = sniphpets.camel_to_snake(t[1], ' ')`.
- *
- * @param ${2/^$/mixed /}\$${1/^./\l$0/}
- *
- * @return bool
- */
-public function has${1}(${2:$1 }$${1/^./\l$0/})
+public function has${1}(${2:$1 }$${1/^./\l$0/}): bool
 {
 	return $this->${3:${1/^./\l$0/}s}->contains($${1/^./\l$0/});
 }
 endsnippet
 
 snippet dcaddom "Doctrine / Entity / 'Adder' method (one to many)" b
-/**
- * Add `!p snip.rv = sniphpets.camel_to_snake(t[1], ' ')`.
- *
- * @param ${2/^$/mixed /}\$${1/^./\l$0/}
- *
- * @return \$this
- */
-public function add${1}(${2:$1 }\$${1/^./\l$0/})
+public function add${1}(${2:$1 }\$${1/^./\l$0/}): void
 {
 	if (!\$this->${3:${1/^./\l$0/}s}->contains(\$${1/^./\l$0/})) {
 		\$this->$3->add(\$${1/^./\l$0/});
 		\$${1/^./\l$0/}->set${5:`!v sniphpets#basename()`}(\$this);
 	}
-
-	return \$this;
 }
 endsnippet
 
 snippet dcaddmm "Doctrine / Entity / 'Adder' method (many to many)" b
-/**
- * Add `!p snip.rv = sniphpets.camel_to_snake(t[1], ' ')`.
- *
- * @param ${2/^$/mixed /}\$${1/^./\l$0/}
- *
- * @return \$this
- */
-public function add${1}(${2:$1 }\$${1/^./\l$0/})
+public function add${1}(${2:$1 }\$${1/^./\l$0/}): void
 {
 	if (!\$this->${3:${1/^./\l$0/}s}->contains(\$${1/^./\l$0/})) {
 		\$this->$3->add(\$${1/^./\l$0/});
 		\$${1/^./\l$0/}->add${5:`!v sniphpets#basename()`}(\$this);
 	}
-
-	return \$this;
 }
 endsnippet
 
 snippet dcremoveom "Doctrine / Entity / 'Remover' method (one to many)" b
-/**
- * Remove `!p snip.rv = sniphpets.camel_to_snake(t[1], ' ')`.
- *
- * @param ${2/^$/mixed /}\$${1/^./\l$0/}
- *
- * @return \$this
- */
-public function remove${1}(${2:$1 }\$${1/^./\l$0/})
+public function remove${1}(${2:$1 }\$${1/^./\l$0/}): void
 {
-	if (\$this->${3:${1/^./\l$0/}s}->contains(\$${1/^./\l$0/})) {
-		\$this->$3->removeElement(\$${1/^./\l$0/});
+	if (\$this->${3:${1/^./\l$0/}s}->removeElement(\$${1/^./\l$0/})) {
 		\$${1/^./\l$0/}->set${4:`!v sniphpets#basename()`}(null);
 	}
-
-	return \$this;
 }
 endsnippet
 
 snippet dcremovemm "Doctrine / Entity / 'Remover' method (many to many)" b
-/**
- * Remove `!p snip.rv = sniphpets.camel_to_snake(t[1], ' ')`.
- *
- * @param ${2/^$/mixed /}\$${1/^./\l$0/}
- *
- * @return \$this
- */
-public function remove${1}(${2:$1 }\$${1/^./\l$0/})
+public function remove${1}(${2:$1 }\$${1/^./\l$0/}): void
 {
-	if (\$this->${3:${1/^./\l$0/}s}->contains(\$${1/^./\l$0/})) {
-		\$this->$3->removeElement(\$${1/^./\l$0/});
-		\$${1/^./\l$0/}->remove${4:`!v sniphpets#basename()`}(\$this);
-	}
-
-	return \$this;
+	\$this->${3:${1/^./\l$0/}s}->removeElement(\$${1/^./\l$0/});
 }
 endsnippet
 
