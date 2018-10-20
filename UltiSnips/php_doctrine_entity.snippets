@@ -74,6 +74,15 @@ snippet dcint "Doctrine / Column / Integer" b
 private \$${1:name};
 endsnippet
 
+snippet dcdecimal "Doctrine / Column / Decimal" b
+/**
+ * @ORM\Column(type="decimal", precision=${2:0}, scale=${3:0})
+ *
+ * @var string
+ */
+private \$${1:name};
+endsnippet
+
 snippet dcdatetime "Doctrine / Column / DateTime" b
 /**
  * @ORM\Column(type="datetime"${2})
