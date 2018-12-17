@@ -174,9 +174,9 @@ endsnippet
 snippet dcaddom "Doctrine / Entity / 'Adder' method (one to many)" b
 public function add${1}(${2:$1 }\$${1/^./\l$0/}): void
 {
-	\$${1/^./\l$0/}->set${5:`!v sniphpets#basename()`}(\$this);
+	\$${1/^./\l$0/}->set${3:`!v sniphpets#basename()`}(\$this);
 
-	if (!\$this->${3:${1/^./\l$0/}s}->contains(\$${1/^./\l$0/})) {
+	if (!\$this->${4:${1/^./\l$0/}s}->contains(\$${1/^./\l$0/})) {
 		\$this->$3->add(\$${1/^./\l$0/});
 	}
 }
