@@ -25,6 +25,27 @@ class `!v sniphpets#basename()`
 }
 endsnippet
 
+snippet dcsuper "Doctrine / Mapped superclass" b
+<?php`!v sniphpets#header()`
+
+namespace `!v sniphpets#namespace()`;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\MappedSuperclass()
+ */
+class `!v sniphpets#basename()`
+{
+	/**
+	 * @ORM\Id()
+	 * @ORM\Column(type="integer")
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	private \$id;${0}
+}
+endsnippet
+
 snippet dcembeddable "Doctrine / Embeddable" b
 <?php`!v sniphpets#header()`
 
