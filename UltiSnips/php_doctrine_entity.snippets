@@ -103,6 +103,7 @@ endsnippet
 
 snippet dconetone "Doctrine / Association / One-to-One" b
 #[ORM\OneToOne(targetEntity: ${1:Entity}::class)]
+#[ORM\JoinColumn(nullable: false)]
 private ?$1 \$${2:${1/^./\l$0/}} = null;
 endsnippet
 
@@ -115,7 +116,8 @@ private Collection \$${4:${1/^./\l$0/}s};
 endsnippet
 
 snippet dcmanytoone "Doctrine / Association / Many-to-One" b
-#[ORM\ManyToOne(targetEntity: ${1:Entity}::class${2:, inversedBy: '${3:`!v sniphpets#lcfirst(sniphpets#basename())`s}'})
+#[ORM\ManyToOne(targetEntity: ${1:Entity}::class${2:, inversedBy: '${3:`!v sniphpets#lcfirst(sniphpets#basename())`s}'})]
+#[ORM\JoinColumn(nullable: false)]
 private ?$1 \$${4:${1/^./\l$0/}} = null;
 endsnippet
 
