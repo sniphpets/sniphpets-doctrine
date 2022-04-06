@@ -11,17 +11,13 @@ namespace `!v sniphpets#namespace()`;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(${1:repositoryClass="${2:`!v sniphpets#basename()`Repository}"})
- */
+#[ORM\Entity]
 class `!v sniphpets#basename()`
 {
-	/**
-	 * @ORM\Id()
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private \$id;${0}
+	#[ORM\Id]
+	#[ORM\GeneratedValue]
+	#[ORM\Column(type: 'integer')]
+	private ?int \$id = null;${0}
 }
 endsnippet
 
@@ -32,17 +28,13 @@ namespace `!v sniphpets#namespace()`;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\MappedSuperclass()
- */
+#[ORM\MappedSuperclass]
 class `!v sniphpets#basename()`
 {
-	/**
-	 * @ORM\Id()
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private \$id;${0}
+	#[ORM\Id]
+	#[ORM\GeneratedValue]
+	#[ORM\Column(type: 'integer')]
+	private ?int \$id = null;${0}
 }
 endsnippet
 
@@ -53,136 +45,86 @@ namespace `!v sniphpets#namespace()`;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Embeddable
- */
+#[ORM\Embeddable]
 class `!v sniphpets#basename()`
 {
 }
 endsnippet
 
 snippet dccolumn "Doctrine / Column" b
-/**
- * @ORM\Column(type="${2:string}"${3})
- */
-private \$${1:name};
+#[ORM\Column(type: '${2:string}'${3})]
+private ${1:property} = null;
 endsnippet
 
 snippet dcstring "Doctrine / Column / String" b
-/**
- * @ORM\Column(type="string", length=${2:255}${3})
- *
- * @var string
- */
-private \$${1:name};
+#[ORM\Column(type: 'string', length: ${2:255}${3})]
+private ?string \$${1:name} = null;
 endsnippet
 
 snippet dctext "Doctrine / Column / Text" b
-/**
- * @ORM\Column(type="text"${2})
- *
- * @var string
- */
-private \$${1:name};
+#[ORM\Column(type: 'text'${2})]
+private ?string \$${1:name} = null;
 endsnippet
 
 snippet dcint "Doctrine / Column / Integer" b
-/**
- * @ORM\Column(type="integer"${2})
- *
- * @var int
- */
-private \$${1:name};
+#[ORM\Column(type: 'integer'${2})]
+private ?int \$${1:name} = null;
 endsnippet
 
 snippet dcdecimal "Doctrine / Column / Decimal" b
-/**
- * @ORM\Column(type="decimal", precision=${2:0}, scale=${3:0})
- *
- * @var string
- */
-private \$${1:name};
+#[ORM\Column(type: 'decimal', precision: ${2:0}, scale: ${3:0})]
+private ?string \$${1:name} = null;
 endsnippet
 
 snippet dcdatetime "Doctrine / Column / DateTime" b
-/**
- * @ORM\Column(type="datetime"${2})
- *
- * @var \DateTime
- */
-private \$${1:name};
+#[ORM\Column(type: 'datetime'${2})]
+private ?\DateTime \$${1:name} = null;
 endsnippet
 
 snippet dcdatetime "Doctrine / Column / DateTimeImmutable" b
-/**
- * @ORM\Column(type="datetime_immutable"${2})
- *
- * @var \DateTimeImmutable
- */
-private \$${1:name};
+#[ORM\Column(type: 'datetime_immutable'${2})]
+private ?DateTimeImmutable \$${1:name} = null;
 endsnippet
 
 snippet dcbool "Doctrine / Column / Boolean" b
-/**
- * @ORM\Column(type="boolean"${2})
- *
- * @var bool
- */
-private \$${1:name};
+#[ORM\Column(type: 'boolean'${2})]
+private ?bool \$${1:name} = null;
 endsnippet
 
 snippet dcjson "Doctrine / Column / JSON" b
-/**
- * @ORM\Column(type="json"${2})
- *
- * @var array
- */
-private \$${1:name};
+#[ORM\Column(type: 'json'${2})]
+private ?array \$${1:name} = null;
 endsnippet
 
-snippet dcembed "Doctrine / Columnt / Embeddable"
-/**
- * @ORM\Embedded(class="${1}")
- *
- * @var $1
- */
-private \$${2:${1/^./\l$0/}};
+snippet dcembed "Doctrine / Column / Embeddable"
+#[ORM\Embedded(class: ${1}::class)]
+private ?$1 \$${2:${1/^./\l$0/}} = null;
 endsnippet
 
 snippet dconetone "Doctrine / Association / One-to-One" b
-/**
- * @ORM\OneToOne(targetEntity="${1:Entity}")
- *
- * @var $1
- */
-private \$${2:${1/^./\l$0/}};
+#[ORM\OneToOne(targetEntity: ${1:Entity}::class)]
+private ?$1 \$${2:${1/^./\l$0/}} = null;
 endsnippet
 
 snippet dconetomany "Doctrine / Association / One-to-Many" b
 /**
- * @ORM\OneToMany(targetEntity="${1:Entity}", mappedBy="${2:`!v sniphpets#lcfirst(sniphpets#basename())`}")
- *
  * @var $1[]|Collection
  */
-private \$${4:${1/^./\l$0/}s};
+#[ORM\OneToMany(targetEntity: ${1:Entity}::class, mappedBy: '${2:`!v sniphpets#lcfirst(sniphpets#basename())`}')]
+private Collection \$${4:${1/^./\l$0/}s};
 endsnippet
 
 snippet dcmanytoone "Doctrine / Association / Many-to-One" b
-/**
- * @ORM\ManyToOne(targetEntity="${1:Entity}"${2:, inversedBy="${3:`!v sniphpets#lcfirst(sniphpets#basename())`s}"})
- *
- * @var $1
- */
-private \$${4:${1/^./\l$0/}};
+#[ORM\ManyToOne(targetEntity: ${1:Entity}::class${2:, inversedBy: '${3:`!v sniphpets#lcfirst(sniphpets#basename())`s}'})
+private ?$1 \$${4:${1/^./\l$0/}} = null;
 endsnippet
 
 snippet dcmanytomany "Doctrine / Association / Many-to-Many" b
 /**
- * @ORM\ManyToMany(targetEntity="${1:Entity}")
- *
  * @var $1[]|Collection
  */
-private \$${2:${1/^./\l$0/}s};
+#[ORM\ManyToMany(targetEntity: ${1:Entity}::class)]
+private Collection \$${2:${1/^./\l$0/}s};
 endsnippet
 
 snippet dchas "Doctrine / Entity / 'Hasser' method" b
