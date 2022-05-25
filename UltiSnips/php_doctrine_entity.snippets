@@ -76,14 +76,9 @@ snippet dcdecimal "Doctrine / Column / Decimal" b
 private ?string \$${1:name} = null;
 endsnippet
 
-snippet dcdatetime "Doctrine / Column / DateTime" b
-#[ORM\Column(type: 'datetime'${2})]
-private ?\DateTime \$${1:name} = null;
-endsnippet
-
 snippet dcdatetime "Doctrine / Column / DateTimeImmutable" b
 #[ORM\Column(type: 'datetime_immutable'${2})]
-private ?DateTimeImmutable \$${1:name} = null;
+private ?\DateTimeImmutable \$${1:name} = null;
 endsnippet
 
 snippet dcbool "Doctrine / Column / Boolean" b
